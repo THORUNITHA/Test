@@ -1,6 +1,70 @@
  @RunWith(MockitoJUnitRunner.class)
 public class TmlInternalApsServiceImplTest {
 
+    private TmlInternalApsServiceImpl service;
+
+    @Before
+    public void setUp() {
+        service = new TmlInternalApsServiceImpl();
+    }
+
+    @Test
+    public void testGetGmiParams() throws Exception {
+        // Setup
+        TAllocationGenericId alloc = mock(TAllocationGenericId.class);
+        when(alloc.getExecBrkMneC()).thenReturn("EXFIRM");
+        when(alloc.getGmiExchCdC()).thenReturn("27");
+        when(alloc.getGmiContractCdC()).thenReturn("FCODE");
+        when(alloc.getQuantityI()).thenReturn(10);
+        when(alloc.getSideC()).thenReturn("BUY");
+        when(alloc.getPriceD()).thenReturn(new BigDecimal("123.45"));
+        when(alloc.getStrikePriceD()).thenReturn(new BigDecimal("150.00"));
+        when(alloc.getPutCallC()).thenReturn("C");
+
+        Date tradeDate = new SimpleDateFormat("yyyy-MM-dd").parse("2024-12-15");
+        Date maturityDate = new SimpleDateFormat("yyyy-MM-dd").parse("2025-06-15");
+
+        when(alloc.getTradeDateDt()).thenReturn(tradeDate);
+        when(alloc.getMaturityDateDt()).thenReturn(maturityDate);
+
+        List<String> accounts = Arrays.asList("ACCT001");
+        List<String> ftracel = Arrays.asList("TRACE001");
+        List<String> execFirmL = null;
+
+        // Use reflection to call protected method
+        Method method = TmlInternalApsServiceImpl.class.getDeclaredMethod("getGmiParams",
+                TAllocationGenericId.class, List.class, List.class, List.class);
+        method.setAccessible(true);
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> result = (Map<String, Object>) method.invoke(service, alloc, accounts, ftracel, execFirmL);
+
+        // Validate result
+        assertNotNull(result);
+        assertEquals("FCODE", result.get("FFC"));
+        assertEquals(accounts, result.get("ACCOUNT"));
+        assertEquals(10, result.get("FQTY"));
+        assertEquals("27", result.get("FEXCH"));
+        assertEquals("1", result.get("FBS")); // from BUY => 1
+        assertEquals(123.45, result.get("FTPRIC"));
+        assertEquals("C", result.get("FSUBTY"));
+        assertEquals(150.00, result.get("FSTRIK"));
+        assertTrue(((List<?>) result.get("FIEFRM")).contains("EXFIRM"));
+        assertEquals(ftracel, result.get("MSG_FTRACE"));
+
+        // Optional: print out keys for debug
+        result.forEach((k, v) -> System.out.println(k + " = " + v));
+    }
+}
+
+
+
+
+
+
+@RunWith(MockitoJUnitRunner.class)
+public class TmlInternalApsServiceImplTest {
+
     @InjectMocks
     private TmlInternalApsServiceImpl service;
 
