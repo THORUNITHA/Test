@@ -1,0 +1,77 @@
+ @RunWith(MockitoJUnitRunner.class)
+public class TmlInternalApsServiceImplTest {
+
+    @InjectMocks
+    private TmlInternalApsServiceImpl service;
+
+    @Mock
+    private TmlQueryDao tmlQueryDao;
+
+    @Spy
+    private Logger log = LoggerFactory.getLogger(TmlInternalApsServiceImpl.class);
+
+    @Before
+    public void setup() throws Exception {
+        // Inject mock logger if necessary via reflection
+        Field logField = TmlInternalApsServiceImpl.class.getDeclaredField("log");
+        logField.setAccessible(true);
+        logField.set(service, log);
+    }
+
+    @Test
+    public void testProcessReplayGroup_withOnlyAvg() {
+        AllocContainer container = mock(AllocContainer.class);
+        when(container.hasOnlyAvg()).thenReturn(true);
+        when(container.hasSamePriceQty(Mockito.anyInt())).thenReturn(true);
+
+        Map<String, AllocContainer> allocMap = new HashMap<>();
+        allocMap.put("group1", container);
+
+        // Mock getAllocs() via reflection
+        try {
+            Method setAllocMethod = TmlInternalApsServiceImpl.class.getDeclaredMethod("getAllocs", String.class);
+            setAllocMethod.setAccessible(true);
+        } catch (Exception e) {
+            fail("Reflection error in setting up getAllocs()");
+        }
+
+        // Force override getAllocs to return mock data
+        doReturn(allocMap).when(service).getAllocs(Mockito.anyString());
+
+        // Run
+        service.processReplayGroup();
+
+        // Verify log and logic
+        verify(log, atLeastOnce()).info(contains("Started (processReplayGroup) processing group:"));
+        verify(container, times(1)).hasOnlyAvg();
+        verify(container, never()).hasSamePriceQty(Mockito.anyInt());
+    }
+
+    @Test
+    public void testProcessReplayGroup_withSamePriceQty() {
+        AllocContainer container = mock(AllocContainer.class);
+        when(container.hasOnlyAvg()).thenReturn(false);
+        when(container.hasSamePriceQty(Mockito.anyInt())).thenReturn(true);
+
+        Map<String, AllocContainer> allocMap = new HashMap<>();
+        allocMap.put("group2", container);
+
+        doReturn(allocMap).when(service).getAllocs(Mockito.anyString());
+
+        service = Mockito.spy(service); // so we can verify internal method
+        doNothing().when(service).updateMatchedStatus(anyString(), anyString(), any(AllocContainer.class));
+
+        service.processReplayGroup();
+
+        verify(service).updateMatchedStatus(eq("RTS"), contains("fills and avg lines found"), eq(container));
+    }
+
+    @Test
+    public void testProcessReplayGroup_withException() {
+        doThrow(new RuntimeException("Test Exception")).when(service).getAllocs(anyString());
+
+        service.processReplayGroup(); // should catch internally
+
+        verify(log).error(contains("exception occured while processing processReplayGroup"), any(Exception.class));
+    }
+}
