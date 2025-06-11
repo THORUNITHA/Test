@@ -1,4 +1,15 @@
 
+# Extract just the process name from the path (assumes it's one directory above script)
+process_name=$(basename "$(dirname "$script")")
+
+# Check if it's already running
+if pgrep -f "$process_name" > /dev/null; then
+    echo "Process '$process_name' is already running. Skipping start."
+    continue
+fi
+
+
+
 
 Here’s a **detailed and professional email-style note** summarizing:
 
