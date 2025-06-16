@@ -1,4 +1,54 @@
 
+
+// === UAT block starts ===
+if ("UAT".equalsIgnoreCase(systemInstance)) {
+    try {
+        final String fileKey = serverAddress + " " + remoteDirectory;
+
+        // Either hardcode a UAT test path or use DROP_LOCATION_C from config
+        // Example: hardcoded
+        // String uatPath = "/Users/yourname/UAT_FTP_Test_Files";
+
+        // Recommended: use DROP_LOCATION_C
+        String uatPath = config.getDropLocationC();
+        log.info("UAT mode: Simulating FTP with local directory: " + uatPath);
+
+        File localDir = new File(uatPath);
+        if (!localDir.exists() || !localDir.isDirectory()) {
+            log.error("UAT directory does not exist or is not a directory: " + uatPath);
+            return false;
+        }
+
+        File[] files = localDir.listFiles();
+        if (files == null || files.length == 0) {
+            log.info("UAT mode: No files found in directory: " + uatPath);
+            return true; // Nothing to process
+        }
+
+        FTPFile[] ftpFiles = Arrays.stream(files)
+            .filter(File::isFile)
+            .map(file -> {
+                FTPFile ftpFile = new FTPFile();
+                ftpFile.setName(file.getName());
+                ftpFile.setSize(file.length());
+                return ftpFile;
+            })
+            .toArray(FTPFile[]::new);
+
+        filesMap.put(fileKey, ftpFiles);
+        return true; // UAT flow ends here
+
+    } catch (Exception e) {
+        log.error("UAT mode: Error reading local files", e);
+        return false;
+    }
+}
+// === UAT block ends ===
+
+
+
+
+
 # Extract just the process name from the path (assumes it's one directory above script)
 process_name=$(basename "$(dirname "$script")")
 
