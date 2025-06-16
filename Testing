@@ -1,5 +1,18 @@
 
 
+UPDATE T_FTP_CONFIG
+SET 
+    REMOTE_HOST_C = 'LOCAL_UAT',
+    REMOTE_DIR_C = '',
+    CONNECTION_TYPE_C = 'LOCAL',
+    DROP_LOCATION_C = '/u01/uat_ftp_drop',
+    TEMP_LOCATION_C = '',
+    IS_ENABLED_SW = 'Y',
+    SYSTEM_INSTANCE_C = 'UAT'
+WHERE CLIENT_C = 'your_client_code';
+
+
+
 // === UAT block starts ===
 if ("UAT".equalsIgnoreCase(systemInstance)) {
     try {
