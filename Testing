@@ -1,5 +1,15 @@
 
 
+if (isUat && isFileDownloaded) {
+    try {
+        Files.deleteIfExists(Paths.get(uatPath, fileName));
+        log.info("UAT mode: Deleted original file from inbound path: " + fileName);
+    } catch (IOException e) {
+        log.error("UAT mode: Failed to delete original file: " + fileName, e);
+    }
+}
+
+
 private FTPClient deleteFile(final Map<String, FTPClient> ftpClientMap,
                              final FtpConfig config,
                              boolean isFileDownloaded,
