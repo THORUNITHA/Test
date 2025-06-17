@@ -1,5 +1,32 @@
 
 
+
+List<FTPFile> ftpFileList = new ArrayList<>();
+for (File file : files) {
+    if (file == null) {
+        log.warn("UAT mode: Skipping null file.");
+        continue;
+    }
+    if (!file.isFile()) {
+        log.info("UAT mode: Skipping directory: " + file.getName());
+        continue;
+    }
+
+    try {
+        FTPFile ftpFile = new FTPFile();
+        ftpFile.setName(file.getName());
+        ftpFile.setSize(file.length());
+        ftpFileList.add(ftpFile);
+        log.debug("UAT mode: Added FTPFile: " + ftpFile.getName() + ", size: " + ftpFile.getSize());
+    } catch (Exception e) {
+        log.error("UAT mode: Error converting file to FTPFile: " + file.getName(), e);
+    }
+}
+
+ftpFiles = ftpFileList.toArray(new FTPFile[0]);
+log.info("UAT mode: FTP files created: " + ftpFiles.length);
+
+
 UPDATE T_FTP_CONFIG
 SET 
     REMOTE_HOST_C = 'LOCAL_UAT',
