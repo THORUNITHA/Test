@@ -1,5 +1,76 @@
 
 
+private FTPClient deleteFile(final Map<String, FTPClient> ftpClientMap,
+                             final FtpConfig config,
+                             boolean isFileDownloaded,
+                             final String remoteHost,
+                             final String serverAddress,
+                             FTPClient ftp,
+                             final String fileName,
+                             final long ftpFileLogId,
+                             final boolean duplicateFile)
+        throws SocketException, IOException, InterruptedException {
+
+    final boolean isUat = "TML_ALLOC_UAT".equalsIgnoreCase(System.getProperty("env"));
+
+    if (isFileDownloaded || duplicateFile) {
+        Log.info("Sending delete command for file: " + fileName);
+
+        boolean deleteSuccessful = false;
+
+        if (isUat) {
+            // Simulate delete from local path
+            String dropPath = config.getDropLocationC();
+            File fileToDelete = new File(dropPath, fileName);
+
+            Log.info("UAT mode: Attempting to delete file from local path: " + fileToDelete.getAbsolutePath());
+
+            if (fileToDelete.exists()) {
+                deleteSuccessful = fileToDelete.delete();
+
+                if (deleteSuccessful) {
+                    Log.info("UAT mode: Successfully deleted file from local path: " + fileName);
+                } else {
+                    Log.warn("UAT mode: Failed to delete file from local path: " + fileName);
+                    setStatusToException(config.getClientC(), ftpFileLogId,
+                            "UNABLE_TO_DELETE_UAT_FILE", "File.delete() returned false");
+                }
+            } else {
+                Log.warn("UAT mode: File does not exist at local path: " + fileToDelete.getAbsolutePath());
+                setStatusToException(config.getClientC(), ftpFileLogId,
+                        "FILE_NOT_FOUND_UAT", "File not found at UAT location");
+            }
+
+        } else {
+            // PROD/INT actual FTP deletion
+            try {
+                ftp.setSoTimeout(Integer.parseInt(props.getProperty("ftp.fileDeleteTimeout").trim()));
+                deleteSuccessful = ftp.deleteFile(fileName);
+
+                if (deleteSuccessful) {
+                    Log.info("Delete command is successful for file: " + fileName);
+                } else {
+                    Log.info("Delete command is unsuccessful for file: " + fileName);
+                }
+
+            } catch (Exception e) {
+                Log.error("Unable to delete file: " + fileName, e);
+                setStatusToException(config.getClientC(), ftpFileLogId,
+                        "UNABLE_TO_DELETE_FTP_FILE", e.getLocalizedMessage());
+
+                ftp = ftpClientMap.get(serverAddress);
+                if (ftp == null) {
+                    ftp = TMLFtpConstants.B2BSERVER.equalsIgnoreCase(remoteHost)
+                            ? getFtp(ftpClientMap, remoteHost)
+                            : getFtps(ftpClientMap, remoteHost);
+                }
+            }
+        }
+    }
+
+    return ftp;
+}
+
 
 List<FTPFile> ftpFileList = new ArrayList<>();
 for (File file : files) {
