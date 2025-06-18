@@ -1,5 +1,39 @@
 
 
+Here’s an updated version of the email incorporating Mani's suggestion:
+
+---
+
+**Subject:** UAT File Handling Changes Implemented in Feature 5933
+
+Hi \[Recipient's Name],
+
+As suggested by **Mani**, the following changes have been implemented under **Feature 5933** to handle file processing behavior in **UAT**:
+
+* When the system instance is **`TML_ALLOC_UAT`**, the application will **not connect to or download files from the FTP server**.
+* Instead, files will be picked directly from the local path:
+  **`/apps/tml/Allocation/inbound`**
+* The logic for:
+
+  * **Simulated file download** (via local copy)
+  * **Duplicate file handling**
+  * **File deletion**
+  * **Moving files to temp and archive locations**
+    remains **unchanged** and is consistently applied in UAT using the local path.
+
+These changes ensure that UAT testing uses local files only and avoids remote FTP interactions.
+
+Please let me know if you need any further details.
+
+Thanks & Regards,
+\[Your Name]
+
+---
+
+Let me know if you want to include any Jira ID, test case reference, or add specific reviewers.
+
+
+
 if (isUat && isFileDownloaded) {
     try {
         Files.deleteIfExists(Paths.get(uatPath, fileName));
