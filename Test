@@ -1,3 +1,14 @@
+javascript:(
+  function() {
+    var debugDiv = document.createElement('div');
+    debugDiv.id = 'debugConsole';
+    debugDiv.style.cssText = 'position:fixed;bottom:0;right:0;width:100%;height:200px;background:black;color:lime;overflow:auto;z-index:9999;padding:10px;font-family:monospace;border-top:2px solid red;';
+    document.body.appendChild(debugDiv);
+    alert('Debug panel added!');
+  }
+)();
+
+
 // Top of omsstaging.controller.js
 window.onerror = function(message, source, lineno, colno, error) {
     // Log to a hidden DOM element (fallback)
