@@ -1,4 +1,35 @@
 
+function showLog(message, isError) {
+    var logDiv = document.getElementById("debug-log");
+    if (!logDiv) return;
+
+    logDiv.style.display = "block";
+    var time = new Date().toLocaleTimeString();
+
+    logDiv.innerHTML += `
+        <div style="margin-bottom:6px; ${isError ? 'color:red;' : ''}">
+            [${time}]<br>
+            <pre style="white-space:pre-wrap; font-family:monospace;">${message}</pre>
+        </div>`;
+}
+
+// Global error capture
+window.onerror = function(message, source, lineno, colno, error) {
+    let fullMessage = "";
+
+    if (error && error.stack) {
+        fullMessage = error.stack;
+    } else {
+        // Fallback if stack is missing
+        fullMessage = `${message} at ${source}:${lineno}:${colno}`;
+    }
+
+    showLog(`❌ JS Error:\n${fullMessage}`, true);
+    return true; // Prevent default alert popup (optional)
+};
+
+
+
 function showLog(message) {
     var logDiv = document.getElementById("debug-log");
     if (!logDiv) return;
