@@ -1,3 +1,22 @@
+ window.onerror = function(message, source, lineno, colno, error) {
+    let logMessage = "<strong>❌ JavaScript Error:</strong><br>";
+
+    if (error && error.stack) {
+        // Use the full stack trace (best way)
+        logMessage += `<pre style="white-space:pre-wrap; font-family:monospace; font-size:12px;">${error.stack}</pre>`;
+    } else {
+        // Fallback for old IE or unknown cases
+        logMessage += `<pre style="white-space:pre-wrap; font-family:monospace; font-size:12px;">${message} at ${source}:${lineno}:${colno}</pre>`;
+    }
+
+    showLog(logMessage);
+    return true; // Prevent browser's default error dialog
+};
+
+
+
+
+
 function showLog(message) {
     var logDiv = document.getElementById("debug-log");
     if (!logDiv) return;
