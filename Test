@@ -1,3 +1,17 @@
+<div id="debug-log" style="display:none; background:#eee; color:#000; font-size:12px; padding:10px; position:fixed; bottom:0; left:0; width:100%; max-height:200px; overflow:auto; z-index:9999;"></div>
+
+
+function showLog(message) {
+    var logDiv = document.getElementById("debug-log");
+    logDiv.style.display = "block";
+    var time = new Date().toLocaleTimeString();
+    logDiv.innerHTML += "<div>[" + time + "] " + message + "</div>";
+}
+
+
+showLog("Controller loaded");
+
+
 javascript:(
   function() {
     var debugDiv = document.createElement('div');
