@@ -1,0 +1,15 @@
+// Top of omsstaging.controller.js
+window.onerror = function(message, source, lineno, colno, error) {
+    // Log to a hidden DOM element (fallback)
+    var errorLog = document.getElementById('errorLog') || document.createElement('div');
+    errorLog.id = 'errorLog';
+    errorLog.style.display = 'none'; // Hide from users
+    document.body.appendChild(errorLog);
+    
+    errorLog.innerHTML += '[ERROR] ' + message + ' at ' + source + ':' + lineno + '<br>';
+    
+    // Optional: Send to server (if backend API exists)
+    // fetch('/log-error', { method: 'POST', body: JSON.stringify({ message, source, lineno, error }) });
+    
+    return true; // Prevents default browser error UI
+};
