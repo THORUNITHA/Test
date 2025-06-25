@@ -1,3 +1,28 @@
+function showLog(message) {
+    var logDiv = document.getElementById("debug-log");
+    if (!logDiv) return;
+
+    logDiv.style.display = "block";
+    var time = new Date().toLocaleTimeString();
+
+    // Try to capture caller's stack info
+    var stack = new Error().stack;
+    var locationInfo = "";
+
+    if (stack) {
+        var lines = stack.split("\n");
+        if (lines[2]) {
+            locationInfo = lines[2].trim();
+        }
+    }
+
+    logDiv.innerHTML += `<div>[${time}] ${message}<br><small style="color:gray;">${locationInfo}</small></div>`;
+}
+
+
+
+
+
 <div id="debug-log" style="display:none; background:#eee; color:#000; font-size:12px; padding:10px; position:fixed; bottom:0; left:0; width:100%; max-height:200px; overflow:auto; z-index:9999;"></div>
 
 
