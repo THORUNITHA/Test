@@ -1,4 +1,16 @@
- window.onerror = function(message, source, lineno, colno, error) {
+
+function showLog(message) {
+    var logDiv = document.getElementById("debug-log");
+    if (!logDiv) return;
+
+    logDiv.style.display = "block";
+    var time = new Date().toLocaleTimeString();
+    logDiv.innerHTML += `<div style="margin-bottom:8px;">[${time}] ${message}</div>`;
+}
+
+
+
+window.onerror = function(message, source, lineno, colno, error) {
     let logMessage = "<strong>❌ JavaScript Error:</strong><br>";
 
     if (error && error.stack) {
