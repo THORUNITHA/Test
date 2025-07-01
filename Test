@@ -1,4 +1,52 @@
 
+Thanks! Here’s the updated and more accurate version of the email, including the point about licensing:
+
+---
+
+**Subject:** Request to Join Moderne CLI/DX Pilot – TML\_GUI Application
+
+Hi Team,
+
+We would like to express our interest in participating in the Moderne CLI/DX Pilot. Please find our details below:
+
+---
+
+**1. AIT/SPK:** 24271 – TML
+**2. Module/Application:**
+
+* **Application Name:** TML\_GUI (Angular frontend and REST services)
+* **Repository:** \[Bitbucket repo link – please insert if available]
+* **Server:** Apache Tomcat
+
+**3. Team SPOC and Members:**
+
+* **SPOC:** \[Your Name]
+* **Team Members:** \[List of members with emails if needed]
+
+**4. Use-Case for PoC:**
+We have raised an ERP to address a **Spring Framework path traversal vulnerability**. While the commercial version **Spring 5.3.41** is available, the necessary **licensing is yet to be procured by the central team**.
+
+In parallel, we are planning a **PoC to migrate our application from JDK 8 to JDK 21**. The PoC will focus on:
+
+* Assessing and applying automated refactoring support for Spring upgrade
+* Identifying and remediating JDK 8 to 21 compatibility issues using Moderne’s capabilities
+
+We are keen to leverage Moderne’s CLI and Developer Experience tools to streamline this modernization and reduce manual effort.
+
+Please review our request and let us know the next steps for onboarding.
+
+Best regards,
+\[Your Full Name]
+\[Your Designation]
+\[Your Email]
+\[Your Contact Number]
+
+---
+
+Let me know if you'd like help filling in any placeholder details.
+
+
+
 function showLog(message, isError) {
     var logDiv = document.getElementById("debug-log");
     if (!logDiv) return;
