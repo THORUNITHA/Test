@@ -1,4 +1,22 @@
 
+Certainly! Here's **one clear acceptance criterion** in **Given–When–Then** format:
+
+---
+
+### ✅ **Acceptance Criterion:**
+
+```
+Given a 2-hour recovery testing window is scheduled,  
+When the Wipro associate initiates BCP by sending an invocation email to the Recovery PoC,  
+Then the Recovery PoC must acknowledge the email and begin supporting the AIT work during the testing period.
+```
+
+---
+
+Let me know if you need it tailored further or added to a full story format.
+
+
+
 Sure! Here's a concise version of the **JIRA Story Description**:
 
 ---
