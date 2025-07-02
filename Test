@@ -1,4 +1,19 @@
 
+Sure! Here's a concise version of the **JIRA Story Description**:
+
+---
+
+### ✅ **Description (Short Version):**
+
+Supporting BAU for the vendor during recovery site testing for AIT. As part of BCP, Wipro associates will initiate and revoke BCP via email, coordinate with the Recovery PoC, and collect required screenshots (MyInfo login, AIT console at start, mid, and end). Artifacts will be compiled and validated by BCP team leads post-testing.
+
+---
+
+Let me know if you need this formatted for a JIRA ticket or want the acceptance criteria too.
+
+
+
+
 Thanks! Here’s the updated and more accurate version of the email, including the point about licensing:
 
 ---
