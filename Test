@@ -1,4 +1,31 @@
 
+Sure! Here's the revised **"Progress Towards Manage Risk Goal"** section written plainly without bold formatting:
+
+---
+
+### Progress Towards “Manage Risk” Goal
+
+* Completed two rounds of Apache Tomcat and JDK upgrades, as well as Spring Boot, Spring Web, and WebMVC version upgrades to remove known vulnerabilities and address NPT-related risks across Silver modules.
+
+* Conducted successful ARC testing to verify TML to DR failover readiness, ensuring resilience and minimizing operational downtime.
+
+* Separated logger and configuration files by environment (Development, QA, Production) to prevent configuration leaks and reduce the risk of deployment errors.
+
+* Resolved key production issues, including the tmltradeload to GMI stop script failure and the NVAP trade mismatch caused by an incorrect fstat7 value. These fixes helped avoid data inconsistencies and downstream processing errors.
+
+* Built a stub-based FTP file reading mechanism to maintain data processing when the FTP server was not accessible, ensuring business continuity.
+
+* Fixed a PCAT quarantine violation by identifying the root cause and applying appropriate code corrections to maintain compliance with internal controls and audit requirements.
+
+* Increased unit test coverage and created an automation script to verify logs across all TML processes, helping catch issues earlier and reduce manual validation effort.
+
+---
+
+Let me know if you want this incorporated directly into your full mid-year review or modified for a specific format like goal-tracking systems.
+
+
+
+
 Certainly! Below is a concise section you can add to your **Mid-Year Review** to demonstrate progress towards the **"Manage Risk"** goal, tailored to your work:
 
 ---
