@@ -1,4 +1,46 @@
 
+Got it! Here’s a more concise, non-repetitive version of your **Mid-Year Review** organized by the four goals:
+
+---
+
+## Mid-Year Review (Jan–Jun 2025)
+
+### Manage Risk
+
+* Completed two rounds of Apache Tomcat and JDK upgrades, plus Spring framework updates, to resolve vulnerabilities and NPT issues.
+* Conducted ARC testing to validate TML to DR failover readiness.
+* Fixed a critical NVAP production issue related to incorrect fstat7 values; currently testing across multiple regions.
+* Separated logging and configuration files by environment to reduce deployment errors.
+* Addressed L3 production issues including the tmltradeload to GMI stop script failure.
+* Implemented a stub FTP file reader workaround during FTP server downtime.
+* Resolved a PCAT quarantine violation to maintain compliance.
+
+### Drive Operational Excellence
+
+* Achieved extensive unit test coverage across key modules such as SilverFileLoader, TML APS, and TML Notification.
+* Automated log verification for all TML processes to improve monitoring efficiency.
+* Supported L3 issue triaging and rota support, contributing to faster issue resolution.
+* Participated in vendor recovery and failover testing to ensure system stability.
+* Improved configuration management for different environments.
+
+### Drive Growth
+
+* Pursuing self-learning on Spring Security, Docker, and Kubernetes via Udemy.
+* Contributed to fixing the OMS tab issue in TML GUI (work in progress).
+* Assisted with cross-regional testing for trade matching and NVAP modules to support upcoming releases.
+
+### Great Place to Work
+
+* Engaged in volunteer activities such as chart making to support team culture.
+* Collaborated actively with peers during testing, issue resolution, and recovery exercises.
+* Shared knowledge gained from self-study and documentation to support team learning.
+
+---
+
+Let me know if you want it further condensed or customized!
+
+
+
 Sure! Here's the revised **"Progress Towards Manage Risk Goal"** section written plainly without bold formatting:
 
 ---
