@@ -1,4 +1,93 @@
 
+Sure! Here's your **complete, polished Mid-Year Review** that captures all your contributions clearly and professionally:
+
+---
+
+## 🗓 **Mid-Year Review Summary (Jan – Jun 2025)**
+
+---
+
+### ✅ **System Upgrades & Technical Enhancements**
+
+* Successfully **upgraded Apache Tomcat and JDK** versions to resolve NPT-related issues in the **TML GUI** application.
+* Applied **Java configuration updates** to align with new deployment standards across environments.
+* Completed **Spring Boot**, **Spring WebMVC**, and **Spring Web** upgrades for all **Silver modules** (**TMLZ-5432**) to address identified vulnerabilities. The updated versions were released successfully.
+
+---
+
+### 🧪 **Testing & Unit Test Coverage**
+
+* Developed and completed **JUnit test cases** for multiple components:
+
+  * `SilverFileLoader`
+  * `TML_Notification`
+  * `TML_LegacyFileLoader`
+  * `TMLFileLoader`
+  * `TML_Status`
+  * `TML_HighAvailabilityAggregation`
+  * `SilverCommon` module
+  * `TML APS` module – achieved test coverage goals.
+* Designed and implemented an **automation script** to verify logs for all TML processes, improving debugging efficiency.
+
+---
+
+### 🛠️ **Production Support & L3 Fixes**
+
+* Resolved **L3 issue**: `tmltradeload` to `GMI` stop script was failing – root cause identified and script fixed.
+* Provided **support for Rota-based L3 issues** with timely resolutions and impact analysis.
+
+---
+
+### 🔁 **Automation & Configuration Improvements**
+
+* Developed a **stub-based TML FTP file reader** as a temporary workaround due to FTP server unavailability; the rest of the process flow remained unchanged.
+* Separated **logger and configuration settings** by environment (Dev, QA, Prod) to enhance maintainability and reduce risk of misconfiguration.
+
+---
+
+### ⚠️ **NVAP & Trade Matching Issue**
+
+* Fixed an NVAP production issue where **trades were averaged but not matched off** due to an incorrect `fstat7` value.
+* Applied a code-level fix and currently conducting **multi-region testing** (APAC, AMRS, EMEA) to ensure stability and correctness prior to release.
+
+---
+
+### ☁️ **Disaster Recovery & Compliance**
+
+* Successfully conducted **ARC testing** for **TML to DR server** failover readiness.
+* Resolved **PCAT quarantine violation** with proper code corrections and documentation to ensure compliance.
+
+---
+
+### 💼 **Feature Development & Fixes**
+
+* Worked on the **TML GUI OMS tab** to address tab rendering issues — analysis and development in progress.
+
+---
+
+### 🤝 **Collaboration & Recovery Testing**
+
+* Participated in **Vendor Integration Recovery Testing** as part of resilience validation efforts.
+* Actively collaborated with internal and external teams during DR planning and integration tests.
+
+---
+
+### 📚 **Self-Learning & Volunteering**
+
+* Ongoing personal upskilling in:
+
+  * **Spring Security**
+  * **Docker**
+  * **Kubernetes** via **Udemy** courses.
+* Participated in team **volunteer activities**, including **chart preparation** and creative contributions to team-building initiatives.
+
+---
+
+Would you like a **shorter summary version**, or a version aligned to a specific performance rating scale (like “Exceeds Expectations,” etc.)?
+
+
+
+
 Certainly! Here's **one clear acceptance criterion** in **Given–When–Then** format:
 
 ---
