@@ -1,4 +1,35 @@
 
+
+
+Sure! Here's the revised version including the line asking for the next steps:
+
+---
+
+Subject: GMI Holiday Flow – Data Verification and Unit Testing Approach
+
+Hi Srihari,
+
+Lavanya has restored the data for the required dates in the tmlqua env1 environment. We have started verification for the recent US holidays (July 4 and June 19), as issues usually surface on the T+1 date. So, we reviewed June 20 and July 7.
+
+Key Observations:
+
+* All NVAP groups for these dates are booked successfully.
+* Each NVAP Group ID was verified along with the corresponding ffc and fexch values.
+* No group ID was found with the status "NVAP NOT BOOKED".
+* We also checked GMITRNF1 for any frecno with incorrect ffc and fexch values but found no inconsistencies.
+
+Unit Testing Approach:
+We can proceed with unit testing only by manually inserting a few fill records in GMITRNF1, GMOLNKF1, and GMILNKF1. Since all the NVAP statuses are booked successfully, we are unable to replicate a failed scenario.
+
+Also, flowing the message from GMI to TML does not serve the purpose for this case, as we are focusing on updating specific records directly in GMI and validating the impact.
+
+Please let us know the next steps.
+
+Best regards,
+\[Your Name]
+
+
+
 Got it! Here’s a more concise, non-repetitive version of your **Mid-Year Review** organized by the four goals:
 
 ---
