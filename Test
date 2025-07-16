@@ -1,4 +1,30 @@
 
+Here’s a polished and professional version of your email:
+
+---
+
+**Subject:** Urgent: Connection Refused Issue in `tml_fcd_distributor` and Notification Services
+
+Hi Team,
+
+We are currently facing a **"connection refused"** issue in the `tml_fcd_distributor` and notification services. This occurs intermittently, and in some cases, right after starting the application.
+
+When we attempt to send a few trades post-startup, the system throws a connection refused exception. At the moment, we are required to **manually stop and restart the process** to get it working, which is not sustainable.
+
+This poses a significant risk to our planned release on **26th July**, and we will not be able to proceed with the release if this issue remains unresolved.
+
+**Request:**
+Kindly help us identify the root cause and guide us on the next steps to address this issue permanently.
+
+Thanks,
+\[Your Name]
+\[Your Team / Project Name]
+
+---
+
+Let me know if you want to add logs or any technical details to help the support/infrastructure team debug this faster.
+
+
 
 
 Sure! Here's the revised version including the line asking for the next steps:
