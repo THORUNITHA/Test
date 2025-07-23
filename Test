@@ -1,3 +1,29 @@
+Here’s a professional email you can send to your team:
+
+---
+
+**Subject:** NVAP Unit Testing – Holiday Scenario Investigation
+
+Hi Team,
+
+Lavanya and I are currently working on the NVAP unit testing.
+
+To replicate the holiday issue, we initially uploaded a message to the queue and updated the **FEXCH** and **FFC** fields on the GMI side. When we uploaded the same message again with the correct **FEXCH** and **FFC**, we encountered an “Invalid Exchange” error.
+
+We’re actively investigating this behavior to understand the root cause. Once we resolve this, we’ll proceed with validating each test case and completing the remaining unit testing.
+
+Will keep you posted on further updates.
+
+Best regards,
+\[Your Name]
+
+---
+
+Let me know if you want to add any more technical details or CC someone.
+
+
+
+
 
 Here’s a polished and professional version of your email:
 
