@@ -1,3 +1,43 @@
+private String[] extractRowData(Row row) {
+    int cellCount = row.getPhysicalNumberOfCells();
+    String[] rowData = new String[cellCount];
+    FormulaEvaluator evaluator = row.getSheet().getWorkbook().getCreationHelper().createFormulaEvaluator();
+    DataFormatter formatter = new DataFormatter();
+    
+    for (int i = 0; i < cellCount; i++) {
+        Cell cell = row.getCell(i, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+        
+        try {
+            // Try to get date value first
+            if (DateUtil.isCellDateFormatted(cell)) {
+                rowData[i] = new SimpleDateFormat("M/d/yyyy").format(cell.getDateCellValue());
+            } else {
+                String value = formatter.formatCellValue(cell, evaluator).trim();
+                // Additional check for numeric values that might be dates
+                if (cell.getCellType() == CellType.NUMERIC) {
+                    double numericValue = cell.getNumericCellValue();
+                    if (numericValue > 0 && numericValue < 100000) {
+                        // This might be a date value stored as number
+                        try {
+                            rowData[i] = new SimpleDateFormat("M/d/yyyy")
+                                .format(DateUtil.getJavaDate(numericValue));
+                            continue;
+                        } catch (Exception e) {
+                            // Not a valid date, use original value
+                        }
+                    }
+                }
+                rowData[i] = value;
+            }
+        } catch (Exception e) {
+            rowData[i] = formatter.formatCellValue(cell, evaluator).trim();
+        }
+    }
+    return rowData;
+}
+
+
+
 <dependency>
   <groupId>org.apache.poi</groupId>
   <artifactId>poi</artifactId>
