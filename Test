@@ -1,3 +1,36 @@
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.DateUtil;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+private String[] extractRowData(Row row) {
+    int cellCount = row.getPhysicalNumberOfCells();
+    String[] rowData = new String[cellCount];
+
+    FormulaEvaluator evaluator = row.getSheet()
+            .getWorkbook()
+            .getCreationHelper()
+            .createFormulaEvaluator();
+
+    DataFormatter formatter = new DataFormatter();
+
+    for (int i = 0; i < cellCount; i++) {
+        Cell cell = row.getCell(i, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+
+        if (cell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(cell)) {
+            // It's a date cell — format exactly like Excel's 3/14/2012 style
+            Date date = cell.getDateCellValue();
+            rowData[i] = new SimpleDateFormat("M/d/yyyy").format(date);
+        } else {
+            // Use DataFormatter to preserve Excel-like formatting for everything else
+            rowData[i] = formatter.formatCellValue(cell, evaluator).trim();
+        }
+    }
+    return rowData;
+}
+
+
+
 
 1) Immigration Process Dependency
     The visa and immigration process is entirely handled by my spouse's employer, and I must travel together with him as part of the coordinated entry plan. I cannot relocate independently
