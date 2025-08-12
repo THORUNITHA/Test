@@ -3,6 +3,50 @@ private String[] extractRowData(Row row) {
     String[] rowData = new String[cellCount];
     FormulaEvaluator evaluator = row.getSheet().getWorkbook().getCreationHelper().createFormulaEvaluator();
     DataFormatter formatter = new DataFormatter();
+
+    for (int i = 0; i < cellCount; i++) {
+        Cell cell = row.getCell(i, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+
+        try {
+            // 1. First, check if Excel formats it as a date
+            if (DateUtil.isCellDateFormatted(cell)) {
+                rowData[i] = new SimpleDateFormat("M/d/yyyy").format(cell.getDateCellValue());
+            }
+            // 2. If not, check if it's a numeric value that could be a date
+            else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                double numericValue = cell.getNumericCellValue();
+                // Check if the number is in Excel date range (e.g., 1 to ~100,000)
+                if (numericValue > 0 && numericValue < 100000) {
+                    try {
+                        // Convert Excel numeric date to Java Date
+                        Date javaDate = DateUtil.getJavaDate(numericValue);
+                        rowData[i] = new SimpleDateFormat("M/d/yyyy").format(javaDate);
+                    } catch (Exception e) {
+                        // If conversion fails, treat as plain number
+                        rowData[i] = String.valueOf(numericValue);
+                    }
+                } else {
+                    // Not a date, just a number (e.g., 53240.0)
+                    rowData[i] = formatter.formatCellValue(cell, evaluator).trim();
+                }
+            }
+            // 3. Default case (String, Boolean, etc.)
+            else {
+                rowData[i] = formatter.formatCellValue(cell, evaluator).trim();
+            }
+        } catch (Exception e) {
+            rowData[i] = formatter.formatCellValue(cell, evaluator).trim();
+        }
+    }
+    return rowData;
+}
+
+
+private String[] extractRowData(Row row) {
+    int cellCount = row.getPhysicalNumberOfCells();
+    String[] rowData = new String[cellCount];
+    FormulaEvaluator evaluator = row.getSheet().getWorkbook().getCreationHelper().createFormulaEvaluator();
+    DataFormatter formatter = new DataFormatter();
     
     for (int i = 0; i < cellCount; i++) {
         Cell cell = row.getCell(i, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
