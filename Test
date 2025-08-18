@@ -1,3 +1,9 @@
+
+
+During my 3 years at Bank of America, my most inspiring moments were when I overcame challenging tasks with my team’s support and saw our efforts make a real impact. Being my first organization, it gave me invaluable learning, growth, and confidence in my career journey.
+
+
+
 private String[] extractRowData(Row row) {
     int cellCount = row.getPhysicalNumberOfCells();
     String[] rowData = new String[cellCount];
